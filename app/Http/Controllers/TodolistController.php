@@ -35,8 +35,19 @@ class TodolistController extends Controller
     }
 
     public function createTodo(Request $request){
-        $todo = Todo::create($request->toArray() );
-        return response()->json($todo);
+        $user = $request->user();
+        $list = Todolist::findOrFail($request->input('todolist_id'));
+        if(! $list){
+            return abort(403, "Cette liste n'exite pas");
+        }
+        if($user->id == $list->user_id){
+            $todo = Todo::create($request->toArray() );
+            return response()->json($todo);
+        }
+        else{
+            return abort(403, "Cette liste ne vous appartient pas");
+        }
+        
     }
 
     public function updateTodo(Request $request, $id){
