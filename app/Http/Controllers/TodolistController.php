@@ -21,7 +21,7 @@ class TodolistController extends Controller
 
     public function getTodos(Request $request, $id){
         $user = $request->user();
-        $list = Todolist::findOrFail($request->input('todolist_id'));
+        $list = Todolist::findOrFail($id);
         if(! $list){
             return abort(403, "Cette liste n'exite pas");
         }
