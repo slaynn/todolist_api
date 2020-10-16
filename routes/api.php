@@ -22,6 +22,15 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
+
+    Route::get('/todolists', 'App\Http\Controllers\TodolistController@getLists');
+    Route::get('/todos/{id}', 'App\Http\Controllers\TodolistController@getTodos');
+
+    Route::post('/todo', 'App\Http\Controllers\TodolistController@createTodo');
+    Route::post('/todolist', 'App\Http\Controllers\TodolistController@createTodolist');
+    Route::post('/completeTodo/{id}', 'App\Http\Controllers\TodolistController@completeTodo');
+
+
 });
 
 /*

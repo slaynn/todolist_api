@@ -1,0 +1,55 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
+use App\Models\Todolist;
+use App\Models\Todo;
+
+class TodolistController extends Controller
+{
+
+
+    public function getLists(Request $request){
+        $user = $request->user();
+        $list = Todolist::where('user_id', $user->id)->get();
+        return response()->json($list);
+    }
+
+    public function getTodos(Request $request, $id){
+        $todos = Todo::where('todolist_id', $id)->get();
+        return response()->json($todos);
+    }
+
+    public function createTodolist(Request $request){
+        $todolist = TodoList::create([
+            'name' => $request->input('name'),
+            'user_id' => $request->user()->id
+        ]);
+
+        $todolist->save();
+        return response()->json($todolist);
+    }
+
+    public function createTodo(Request $request){
+        $todo = Todo::create($request->toArray() );
+        return response()->json($todo);
+    }
+
+    public function updateTodo(Request $request, $id){
+        $todo = Todo::findOrFail($id);
+
+        return response()->json($todo);
+
+    }
+
+    public function completeTodo(Request $request, $id){
+        $todo = Todo::findOrFail($id);
+        $todo->completed = $request->params('completed');
+        $todo->save();
+        return response()->json($todo);
+    }
+}
