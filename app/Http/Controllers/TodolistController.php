@@ -55,6 +55,7 @@ class TodolistController extends Controller
             return abort(403, "Cette liste n'exite pas");
         }
         if($user->id == $list->user_id){
+            error_log('toto');
             $todo = Todo::create($request->toArray() );
             return response()->json($todo);
         }
