@@ -15,7 +15,11 @@ class TodolistController extends Controller
 
     public function getLists(Request $request){
         $user = $request->user();
-        $list = Todolist::where('user_id', $user->id)->get();
+        $lists = Todolist::where('user_id', $user->id)->get();
+        foreach ($lists as $list) {
+           $nb_todos = Todo::where('todolist_id', $list->id)->count();
+           $list['nb_todos'] = $nb_todos;
+        }
         return response()->json($list);
     }
 
