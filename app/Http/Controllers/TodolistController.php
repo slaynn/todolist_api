@@ -20,7 +20,7 @@ class TodolistController extends Controller
            $nb_todos = Todo::where('todolist_id', $list->id)->count();
            $list['nb_todos'] = $nb_todos;
         }
-        return response()->json($list);
+        return response()->json($lists);
     }
 
     public function getTodos(Request $request, $id){
