@@ -56,7 +56,11 @@ class TodolistController extends Controller
         }
         if($user->id == $list->user_id){
             error_log('toto');
-            $todo = Todo::create($request->toArray() );
+            $todo = Todo::create([
+                'name' => $request->input('name'),
+                'completed' => $request->input('completed'),
+                'todolist_id' => $list->id
+                ]);
             return response()->json($todo);
         }
         else{
