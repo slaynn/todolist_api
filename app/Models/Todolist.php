@@ -18,6 +18,6 @@ class Todolist extends Model
         return $this->belongsTo('App\Models\User');
     }
     public function todos(){
-        return $this->hasManay('App\Models\Todo');
+        return $this->hasMany('App\Models\Todo');
     }
 }
