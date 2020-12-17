@@ -78,7 +78,7 @@ class TodolistController extends Controller
 
     public function completeTodo(Request $request, $id){
         $todo = Todo::findOrFail($id);
-        $todo->completed = $request->params('completed');
+        $todo->completed = $request->input('completed');
         $todo->save();
         return response()->json($todo);
     }
