@@ -17,4 +17,7 @@ class Todolist extends Model
     public function user(){
         return $this->belongsTo('App\Models\User');
     }
+    public function todos(){
+        return $this->hasManay('App\Models\Todo');
+    }
 }
