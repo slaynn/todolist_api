@@ -71,6 +71,8 @@ class TodolistController extends Controller
 
     public function updateTodo(Request $request, $id){
         $todo = Todo::findOrFail($id);
+        $todo->name = $request->name;
+        $todo->save();
 
         return response()->json($todo);
 
