@@ -16,8 +16,8 @@ class PassportAuthController extends Controller
             'password' => 'required|min:8',
         ]);
  
-        $user_temp = User::where('email', $request->email)->get();
-        if($user_temp){
+        $user_temp = User::where('email', $request->email)->count();
+        if($user_temp>0){
             return response()->json(['message' => 'cet email est déjà utilisé'], 409);
         }
 
