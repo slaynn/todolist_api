@@ -84,4 +84,6 @@ class TodolistController extends Controller
         $todo->save();
         return response()->json($todo);
     }
+
+    //@Todo add remove todo
 }
