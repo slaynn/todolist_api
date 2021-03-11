@@ -10,11 +10,14 @@ class PassportAuthController extends Controller
      */
     public function register(Request $request)
     {
+        /*
         $this->validate($request, [
             'name' => 'required|min:4',
             'email' => 'required|email',
             'password' => 'required|min:8',
         ]);
+        */
+        
  
         $user_temp = User::where('email', $request->email)->count();
         if($user_temp>0){
