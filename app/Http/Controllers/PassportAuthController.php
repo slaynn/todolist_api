@@ -1,6 +1,8 @@
 <?php
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+
 use App\Models\User;
 
 class PassportAuthController extends Controller
@@ -17,7 +19,15 @@ class PassportAuthController extends Controller
             'password' => 'required|min:8',
         ]);
         */
-        
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255',
+            'password' => 'required|string|min:6',
+        ]);
+        if ($validator->fails())
+        {
+            return response(['errors'=>$validator->errors()->all()], 422);
+        }
  
         $user_temp = User::where('email', $request->email)->count();
         if($user_temp>0){
