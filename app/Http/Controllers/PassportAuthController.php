@@ -16,6 +16,11 @@ class PassportAuthController extends Controller
             'password' => 'required|min:8',
         ]);
  
+        $user_temp = User::where('email', $request->email)->get();
+        if($user_temp){
+            return response()->json(['message' => 'cet email est déjà utilisé'], 409);
+        }
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
