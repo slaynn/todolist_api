@@ -34,7 +34,7 @@ class TodolistController extends Controller
             return response()->json($todos);
         }
         else{
-            return abort(403, "Cette liste ne vous appartient pas");
+            return response()->json(['error' => 'Cette liste ne vous appartient pas'], 403);
         }
     }
 
@@ -52,7 +52,7 @@ class TodolistController extends Controller
         $user = $request->user();
         $list = Todolist::findOrFail($request->input('todolist_id'));
         if(! $list){
-            return abort(403, "Cette liste n'exite pas");
+            return response()->json(['error' => 'Cette liste n existe pas'], 404);
         }
         if($user->id == $list->user_id){
             error_log('toto');
@@ -64,7 +64,7 @@ class TodolistController extends Controller
             return response()->json($todo);
         }
         else{
-            return abort(403, "Cette liste ne vous appartient pas");
+            return response()->json(['error' => 'Cette liste ne vous appartient pas'], 403);
         }
         
     }
@@ -99,7 +99,7 @@ class TodolistController extends Controller
         $user = $request->user();
         $todoList = Todolist::findOrFail($id);
         if(! $todoList){
-            return abort(403, "Cette liste n'exite pas");
+            return response()->json(['error' => 'Cette liste n existe pas'], 404);
         }
         if($user->id == $todoList->user_id){
             $todoList->delete();
@@ -109,7 +109,7 @@ class TodolistController extends Controller
             );
         }
         else{
-            return abort(403, "Cette liste ne vous appartient pas");
+            return response()->json(['error' => 'Cette liste ne vous appartient pas'], 403);
         }
         
     }
