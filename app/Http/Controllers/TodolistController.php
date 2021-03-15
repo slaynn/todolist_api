@@ -98,7 +98,7 @@ class TodolistController extends Controller
     public function deleteTodolist(Request $request, $id){
         $user = $request->user();
         $todoList = Todolist::findOrFail($id);
-        if(! $list){
+        if(! $todoList){
             return abort(403, "Cette liste n'exite pas");
         }
         if($user->id == $todoList->user_id){
