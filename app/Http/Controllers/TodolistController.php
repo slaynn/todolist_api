@@ -86,4 +86,31 @@ class TodolistController extends Controller
     }
 
     //@Todo add remove todo
+    public function deleteTodo(Request $request, $id){
+        $todo = Todo::findOrFail($id);
+        $todo->delete();
+        return response()->json([
+            "message" => "todo supprimée"
+            ]
+        );
+    }
+
+    public function deleteTodolist(Request $request, $id){
+        $user = $request->user();
+        $todoList = Todolist::findOrFail($id);
+        if(! $list){
+            return abort(403, "Cette liste n'exite pas");
+        }
+        if($user->id == $list->user_id){
+            $todoList->delete();
+            return response()->json([
+                "message" => "todoliste supprimée"
+                ]
+            );
+        }
+        else{
+            return abort(403, "Cette liste ne vous appartient pas");
+        }
+        
+    }
 }
