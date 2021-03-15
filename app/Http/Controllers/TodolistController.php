@@ -101,7 +101,7 @@ class TodolistController extends Controller
         if(! $list){
             return abort(403, "Cette liste n'exite pas");
         }
-        if($user->id == $list->user_id){
+        if($user->id == $todoList->user_id){
             $todoList->delete();
             return response()->json([
                 "message" => "todoliste supprimée"
