@@ -32,7 +32,7 @@ Route::middleware('auth:api')->group(function () {
     Route::patch('/todo/{id}', 'App\Http\Controllers\TodolistController@updateTodo');
     Route::delete('/todolist/{id}', 'App\Http\Controllers\TodolistController@deleteTodolist');
     Route::delete('/todo/{id}', 'App\Http\Controllers\TodolistController@deleteTodo');
-
+    Route::patch('/todo/{id}', 'App\Http\Controllers\TodolistController@updateTodo');
 });
 
 /*
